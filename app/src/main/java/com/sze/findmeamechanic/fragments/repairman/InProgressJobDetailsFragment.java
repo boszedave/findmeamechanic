@@ -1,5 +1,7 @@
 package com.sze.findmeamechanic.fragments.repairman;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,17 +55,8 @@ public class InProgressJobDetailsFragment extends Fragment implements View.OnCli
 
         initJobDetails();
         finishJob.setOnClickListener(this);
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString(JOB_ID, docID);
-                bundle.putString("client_name", jobSenderName.getText().toString());
-                Fragment chatFragment = new ChatFragment();
-                chatFragment.setArguments(bundle);
-                getFragmentManager().beginTransaction().replace(R.id.main_repman_activity_container, chatFragment).addToBackStack(null).commit();
-            }
-        });
+        jobLocationText.setOnClickListener(this);
+        chat.setOnClickListener(this);
     }
 
     private void initJobDetails() {
@@ -110,12 +102,37 @@ public class InProgressJobDetailsFragment extends Fragment implements View.OnCli
         });
     }
 
+    public void openGoogleMap() {
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + jobLocationText.getText().toString());
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        }
+    }
+
     @Override
     public void onClick(View v) {
-        Bundle bundle = new Bundle();
-        bundle.putString(JOB_ID, docID);
-        Fragment selectFragment = new JobSheetFragment();
-        selectFragment.setArguments(bundle);
-        getFragmentManager().beginTransaction().replace(R.id.main_repman_activity_container, selectFragment).addToBackStack(null).commit();
+        switch (v.getId()) {
+            case R.id.button_in_progress_job_close:
+                Bundle bundle = new Bundle();
+                bundle.putString(JOB_ID, docID);
+                Fragment selectFragment = new JobSheetFragment();
+                selectFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.main_repman_activity_container, selectFragment).addToBackStack(null).commit();
+                break;
+            case R.id.button_repman_chat:
+                Bundle bundle2 = new Bundle();
+                bundle2.putString(JOB_ID, docID);
+                bundle2.putString("client_name", jobSenderName.getText().toString());
+                Fragment chatFragment = new ChatFragment();
+                chatFragment.setArguments(bundle2);
+                getFragmentManager().beginTransaction().replace(R.id.main_repman_activity_container, chatFragment).addToBackStack(null).commit();
+                break;
+            case R.id.textView_in_progress_job_location_text:
+                openGoogleMap();
+                break;
+        }
     }
 }

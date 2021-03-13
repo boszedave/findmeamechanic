@@ -1,6 +1,8 @@
 package com.sze.findmeamechanic.fragments.repairman;
 
+import android.content.Intent;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +66,7 @@ public class ApplyJobFragment extends Fragment implements View.OnClickListener {
         initJobDetails();
         checkIfAppliedToJobYet();
         applyToJob.setOnClickListener(this);
+        jobLocationText.setOnClickListener(this);
     }
 
     private void initJobDetails() {
@@ -136,16 +139,32 @@ public class ApplyJobFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        pBar.setVisibility(View.VISIBLE);
-        applyToJob.setText("");
-        firestoreManager.applyToJob(docID, new FirestoreManager.GetQueryCallback() {
-            @Override
-            public void onQueryCallback() {
-                applyToJob.setText(R.string.text_button_apply_job);
-                applyToJob.setEnabled(false);
-                pBar.setVisibility(View.GONE);
-            }
-        });
+        switch (v.getId()) {
+            case R.id.button_apply_job_apply:
+                pBar.setVisibility(View.VISIBLE);
+                applyToJob.setText("");
+                firestoreManager.applyToJob(docID, new FirestoreManager.GetQueryCallback() {
+                    @Override
+                    public void onQueryCallback() {
+                        applyToJob.setText(R.string.text_button_apply_job);
+                        applyToJob.setEnabled(false);
+                        pBar.setVisibility(View.GONE);
+                    }
+                });
+                break;
+            case R.id.textView_apply_job_location_text:
+                openGoogleMap();
+                break;
+        }
+    }
 
+    private void openGoogleMap() {
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + jobLocationText.getText().toString());
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        }
     }
 }

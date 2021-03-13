@@ -2,7 +2,6 @@ package com.sze.findmeamechanic.managers;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 

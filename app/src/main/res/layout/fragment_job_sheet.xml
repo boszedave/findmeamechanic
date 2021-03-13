@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView_sheet_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/text_sheet_title"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_sheet_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Munkalap száma:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_title"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_title" />
+
+        <TextView
+            android:id="@+id/textView_sheet_number_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_number"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_title" />
+
+        <TextView
+            android:id="@+id/textView_sheet_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Felvétel dátuma:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_number"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_number" />
+
+        <TextView
+            android:id="@+id/textView_sheet_number_date_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_date"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_number" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Szerelői adatai"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_date"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_date" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Szerelő neve:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_repman_details"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_details" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_name_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_repman_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_details" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Cégnév:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_repman_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_name" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_company_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_repman_company"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_name_data" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_company_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Cég székhelye:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_repman_company"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_company" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_company_location_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_repman_company_location"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_company_data" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Telefonszám:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_repman_company_location"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_company_location" />
+
+        <TextView
+            android:id="@+id/textView_sheet_repman_phone_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_repman_phone"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_company_location_data" />
+
+        <TextView
+            android:id="@+id/textView_sheet_client_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Ügyfél adatai"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_repman_phone"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_repman_phone" />
+
+        <TextView
+            android:id="@+id/textView_sheet_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Ügyfél neve:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_client_details"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_client_details" />
+
+        <TextView
+            android:id="@+id/textView_sheet_client_name_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_client_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_client_details" />
+
+        <TextView
+            android:id="@+id/textView_sheet_client_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Telefonszám:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_client_name"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_client_name" />
+
+        <TextView
+            android:id="@+id/textView_sheet_client_phone_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_client_phone"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_client_name_data" />
+
+        <TextView
+            android:id="@+id/textView_sheet_job_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Javítás adatai"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_client_phone"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_client_phone" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_sheet_job_description"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/text_repair_description"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_sheet_job_details">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView_sheet_job_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Felhasznált tételek:"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_job_details"
+            app:layout_constraintTop_toBottomOf="@+id/textField_sheet_job_description" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_job_item"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_job_item" />
+
+        <TextView
+            android:id="@+id/textView_sheet_job_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Összesen fizetendő:"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_job_item"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_item_list" />
+
+        <TextView
+            android:id="@+id/textView_sheet_job_total_price_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/textView_sheet_job_total_price"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_item_list" />
+
+        <Button
+            android:id="@+id/button_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_add_24"
+            android:text="@string/button_text_add_item"
+            app:cornerRadius="15dp"
+            app:layout_constraintStart_toStartOf="@id/textView_sheet_job_item"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_job_total_price" />
+
+        <Button
+            android:id="@+id/button_item_finalize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawableLeft="@drawable/ic_baseline_check_24"
+            android:text="Befejezés"
+            app:cornerRadius="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_sheet_job_total_price" />
+
+        <TextView
+            android:id="@+id/textView_item_information_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Legalább egy elemet hozzá kell adnod (pl. munkadíj)!"
+            android:textColor="@color/button_error"
+            app:layout_constraintBottom_toTopOf="@id/button_close_job"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_item_finalize" />
+
+        <Button
+            android:id="@+id/button_close_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Munka lezárása"
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_add_item" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/pbar_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_close_job"
+            android:visibility="invisible"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

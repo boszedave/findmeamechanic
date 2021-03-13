@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_repman_home_jobs"
+        android:icon="@drawable/ic_baseline_build_24"
+        android:title="@string/nav_text_search_jobs" />
+
+    <item
+        android:id="@+id/nav_repman_active_jobs"
+        android:icon="@drawable/ic_baseline_work_24"
+        android:title="@string/nav_text_active_jobs" />
+
+    <item
+        android:id="@+id/nav_repman_closed_jobs"
+        android:icon="@drawable/ic_baseline_work_off_24"
+        android:title="@string/nav_text_closed_jobs" />
+
+    <item
+        android:id="@+id/nav_repman_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/nav_text_settings" />
+
+</menu>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/buttonBlue"
+        app:layout_constraintBottom_toTopOf="@id/guideline_popup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView_profile_picture_repairman"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/follow"
+        app:civ_border_width="0.25dp"
+        app:civ_circle_background_color="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_repairman_name_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="John Doe"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_profile_picture_repairman" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView_repairman_info"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="-25dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_popup2"
+        app:cardCornerRadius="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView_finished_jobs_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:text="Elvégzett\n munkák"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_finished_jobs_number_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="10dp"
+                android:text="0"
+                android:textColor="@color/buttonBlue"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView_finished_jobs_number" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="150dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="50dp"
+                android:text="Értékelés"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/textView_rating"
+                app:layout_constraintStart_toStartOf="@id/textView_rating"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:progressTint="@color/buttonBlue"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_popup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_popup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28"
+        app:layout_constraintTop_toBottomOf="@id/textView_repairman_name_profile"/>
+
+    <ImageView
+        android:id="@+id/imageView_profession"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_outline_work_outline_24"
+        app:layout_constraintStart_toStartOf="@id/cardView_repairman_info"
+        app:layout_constraintTop_toBottomOf="@id/cardView_repairman_info" />
+
+    <TextView
+        android:id="@+id/textView_profession_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/text_default_profile"
+        app:layout_constraintStart_toEndOf="@id/imageView_profession"
+        app:layout_constraintTop_toBottomOf="@id/cardView_repairman_info" />
+
+    <ImageView
+        android:id="@+id/imageView_icon_company"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_outline_business_24"
+        app:layout_constraintStart_toStartOf="@id/imageView_profession"
+        app:layout_constraintTop_toBottomOf="@id/imageView_profession" />
+
+    <TextView
+        android:id="@+id/textView_company_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/text_default_profile"
+        app:layout_constraintStart_toEndOf="@id/imageView_icon_company"
+        app:layout_constraintTop_toBottomOf="@id/textView_profession_name" />
+
+    <ImageView
+        android:id="@+id/imageView_icon_company_address"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_outline_place_24"
+        app:layout_constraintStart_toStartOf="@id/imageView_icon_company"
+        app:layout_constraintTop_toBottomOf="@id/imageView_icon_company" />
+
+    <TextView
+        android:id="@+id/textView_company_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/text_default_profile"
+        app:layout_constraintStart_toEndOf="@id/imageView_icon_company"
+        app:layout_constraintTop_toBottomOf="@id/textView_company_name" />
+
+    <ImageView
+        android:id="@+id/imageView_icon_repman_email"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_baseline_mail_outline_24"
+        app:layout_constraintStart_toStartOf="@id/imageView_icon_company_address"
+        app:layout_constraintTop_toBottomOf="@id/imageView_icon_company_address" />
+
+    <TextView
+        android:id="@+id/textView_repman_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/text_default_profile"
+        app:layout_constraintStart_toEndOf="@id/imageView_icon_repman_email"
+        app:layout_constraintTop_toBottomOf="@id/textView_company_address" />
+
+    <ImageView
+        android:id="@+id/imageView_icon_phone"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_outline_phone_24"
+        app:layout_constraintStart_toStartOf="@id/imageView_icon_repman_email"
+        app:layout_constraintTop_toBottomOf="@id/imageView_icon_repman_email" />
+
+    <TextView
+        android:id="@+id/textView_repman_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/text_default_profile"
+        android:textIsSelectable="true"
+        android:focusable="true"
+        android:longClickable="true"
+        android:enabled="true"
+        app:layout_constraintStart_toEndOf="@id/imageView_icon_phone"
+        app:layout_constraintTop_toBottomOf="@id/textView_repman_email" />
+
+    <Button
+        android:id="@+id/select_repairman"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_repman_phone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Kiválasztás"
+        android:layout_marginTop="10dp"
+        app:cornerRadius="15dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.sze.findmeamechanic.managers;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
@@ -432,7 +431,7 @@ public class FirestoreManager {
                     data.put("repName", name);
                     data.put("repId", userID);
                     collectionRef.add(data);
-                    fStore.collection("ActiveJobs").document(docID).update("applicants", data);
+                    //fStore.collection("ActiveJobs").document(docID).update("applicants", data);
                     fStore.collection("ActiveJobs").document(docID).update("jobApplicantsId", FieldValue.arrayUnion(userID));
                     callback.onQueryCallback();
                 }
@@ -466,7 +465,6 @@ public class FirestoreManager {
     }
 
     public Query getRepairmanActiveJobs() {
-        //  return fStore.collection("ActiveJobs").whereArrayContains("jobApplicantsId", userID);
         return fStore.collection("ActiveJobs").whereEqualTo("finalApplicant", userID);
     }
 

@@ -2,6 +2,7 @@ package com.sze.findmeamechanic.fragments.client;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         super.onStart();
         adapter.startListening();
 
+        Log.d("switchstate", "onStart: " + switchState);
         if (switchState) {
             listener = firestoreManager.notifyAboutNewApplicant(new FirestoreManager.GetFieldCallback() {
                 @Override
@@ -130,7 +132,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             .setContentTitle(title)
                             .setContentText(content)
                             .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true);
 
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
                     notificationManager.notify(new Random().nextInt(), builder.build());

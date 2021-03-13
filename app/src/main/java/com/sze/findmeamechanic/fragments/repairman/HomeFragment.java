@@ -232,7 +232,7 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
                 public void onTaskResultCallback(String str) {
                     //create notification
                     String title = "Új jelentkezés";
-                    String content = "A(z) " + str + " nevű munkára elfogadtak/változás történt";
+                    String content = "A(z) " + str + " nevű munkánál elfogadtak/változás történt";
                     String CHANNEL_ID = Integer.toString(new Random().nextInt(100));
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), CHANNEL_ID)

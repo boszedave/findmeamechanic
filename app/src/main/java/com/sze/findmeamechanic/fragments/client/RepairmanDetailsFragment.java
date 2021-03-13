@@ -68,16 +68,16 @@ public class RepairmanDetailsFragment extends Fragment implements View.OnClickLi
             public void onGetFieldCallback(final DocumentSnapshot documentSnapshot) {
                 repairmanName.setText(documentSnapshot.getString("repName"));
                 profession.setText(documentSnapshot.getString("repProfession"));
-                if (!documentSnapshot.getString("companyName").equals("")) {
+                if (!documentSnapshot.getString("repCompanyName").isEmpty()) {
                     companyName.setText(documentSnapshot.getString("companyName"));
                 }
-                if (!documentSnapshot.getString("companyAddress").equals("")) {
+                if (!documentSnapshot.getString("repCompanyAddress").isEmpty()) {
                     companyAddress.setText(documentSnapshot.getString("companyAddress"));
                 }
                 repairmanEmail.setText(documentSnapshot.getString("repEmail"));
                 repairmanPhone.setText(documentSnapshot.getString("repPhoneNr"));
 
-                if (documentSnapshot.getString("pathToImage") != null || !documentSnapshot.getString("pathToImage").equals("")) {
+                if (documentSnapshot.getString("pathToImage") != null || !documentSnapshot.getString("pathToImage").isEmpty()) {
                     String pictureUrl = documentSnapshot.getString("pathToImage");
                     Glide.with(Objects.requireNonNull(getActivity()))
                             .load(pictureUrl)

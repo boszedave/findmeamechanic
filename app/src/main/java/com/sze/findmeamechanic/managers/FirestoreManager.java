@@ -2,6 +2,7 @@ package com.sze.findmeamechanic.managers;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
@@ -143,30 +144,6 @@ public class FirestoreManager {
 
         return listener;
     }
-
-    /*public void getActiveJobCoordinates(String docID, final GetSnapshotCallback callback) {
-        docRef = fStore.collection("ActiveJobs").document(docID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    callback.onGetFieldCallback(documentSnapshot);
-                }
-            }
-        });
-    }
-
-    public void getFinishedJobCoordinates(String docID, final GetSnapshotCallback callback) {
-        docRef = fStore.collection("FinishedJobs").document(docID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    callback.onGetFieldCallback(documentSnapshot);
-                }
-            }
-        });
-    } */
 
     public void saveJob(String name, String type, String description, String deadline, String timestamp, String pathToImage,
                         ArrayList<Double> inputLocationArr, Map<String, Object> geoHashLocation, String locationText) {
@@ -619,35 +596,6 @@ public class FirestoreManager {
                             callback.onTaskResultCallback(id);
                             break;
                     }
-                }
-            }
-        });
-
-        return listener;
-    }
-
-    //TODO
-    // valamit csinálni
-    public ListenerRegistration notifyAboutMessages(final GetFieldCallback callback) {
-        ListenerRegistration listener = fStore.collection("ActiveJobs").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable final QuerySnapshot snapshotValue, @Nullable FirebaseFirestoreException error) {
-                for (final DocumentChange documentChange : snapshotValue.getDocumentChanges()) {
-                    documentChange.getDocument().getReference().collection("Chats").whereNotEqualTo("messageUserId", fAuth.getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            for (DocumentChange documentChange2 : value.getDocumentChanges()) {
-                                DocumentSnapshot documentSnapshot = documentChange2.getDocument();
-                                //String id = documentSnapshot.getString("senderID");
-                                String asd = documentChange.getDocument().getString("jobName");
-                                switch (documentChange2.getType()) {
-                                    case ADDED:
-                                        callback.onTaskResultCallback(asd);
-                                        break;
-                                }
-                            }
-                        }
-                    });
                 }
             }
         });

@@ -4,10 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.sze.findmeamechanic.R;
 import com.sze.findmeamechanic.models.NearbyJob;
+
 import java.util.List;
 
 public class NearbyJobsAdapter extends RecyclerView.Adapter<NearbyJobsAdapter.ViewHolder> {
@@ -20,9 +23,9 @@ public class NearbyJobsAdapter extends RecyclerView.Adapter<NearbyJobsAdapter.Vi
 
         public ViewHolder(View view, OnJobClickListener onJobClickListener) {
             super(view);
-            name = (TextView) view.findViewById(R.id.text_view_title);
-            desc = (TextView) view.findViewById(R.id.text_view_desc);
-            date = (TextView) view.findViewById(R.id.text_view_post_date);
+            name = view.findViewById(R.id.text_view_title);
+            desc = view.findViewById(R.id.text_view_desc);
+            date = view.findViewById(R.id.text_view_post_date);
             this.onJobClickListener = onJobClickListener;
 
             itemView.setOnClickListener(this);
@@ -42,7 +45,7 @@ public class NearbyJobsAdapter extends RecyclerView.Adapter<NearbyJobsAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_item, parent,false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_item, parent, false);
 
         return new ViewHolder(itemView, onJobClickListener);
     }

@@ -2,7 +2,6 @@ package com.sze.findmeamechanic.fragments.client;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.sze.findmeamechanic.R;
 import com.sze.findmeamechanic.adapters.MessageAdapter;
 import com.sze.findmeamechanic.managers.FirestoreManager;
@@ -59,9 +57,6 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
-
-
     }
 
     @Override

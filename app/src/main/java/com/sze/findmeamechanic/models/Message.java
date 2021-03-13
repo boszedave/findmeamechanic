@@ -12,7 +12,8 @@ public class Message {
     private String messageUserId;
     private String messageTime;
 
-    public Message(){}
+    public Message() {
+    }
 
     public Message(String messageUserName, String messageText, String messageUserId) {
         Date dateTime = Calendar.getInstance().getTime();

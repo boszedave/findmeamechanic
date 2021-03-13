@@ -3,7 +3,8 @@ package com.sze.findmeamechanic.models;
 public class Client {
     String clientID, clientName, clientEmail, clientPhoneNr, pathToImage;
 
-    public Client(){}
+    public Client() {
+    }
 
     public Client(String clientID, String clientName, String clientEmail, String clientPhoneNr, String pathToImage) {
         this.clientID = clientID;
@@ -13,9 +14,13 @@ public class Client {
         this.pathToImage = pathToImage;
     }
 
-    public String getClientID() { return clientID; }
+    public String getClientID() {
+        return clientID;
+    }
 
-    public void setClientID(String clientID) { this.clientID = clientID; }
+    public void setClientID(String clientID) {
+        this.clientID = clientID;
+    }
 
     public String getClientName() {
         return clientName;
@@ -33,9 +38,13 @@ public class Client {
         this.clientEmail = clientEmail;
     }
 
-    public String getPathToImage() { return pathToImage; }
+    public String getPathToImage() {
+        return pathToImage;
+    }
 
-    public void setPathToImage(String pathToImage) { this.pathToImage = pathToImage; }
+    public void setPathToImage(String pathToImage) {
+        this.pathToImage = pathToImage;
+    }
 
     public String getClientPhoneNr() {
         return clientPhoneNr;

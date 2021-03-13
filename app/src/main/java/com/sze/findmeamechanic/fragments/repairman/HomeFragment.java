@@ -246,8 +246,10 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
                     notificationManager.notify(new Random().nextInt(), builder.build());
                 }
+
                 @Override
-                public void onSuccessfulQueryCallback() { }
+                public void onSuccessfulQueryCallback() {
+                }
             });
         }
     }

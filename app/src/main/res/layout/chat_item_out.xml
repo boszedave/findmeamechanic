@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="2dp"
-    app:cardCornerRadius="15dp"
     app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="15dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
@@ -19,17 +18,17 @@
         <TextView
             android:id="@+id/text_view_title_chat"
             android:layout_width="wrap_content"
-            android:maxWidth="100dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:maxLines="1"
-            android:maxEms="12"
             android:ellipsize="end"
-            android:text="Username"
-            android:textSize="16sp"
+            android:maxWidth="100dp"
+            android:maxEms="12"
+            android:maxLines="1"
             android:scrollHorizontally="true"
-            android:visibility="invisible"
+            android:text="Username"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="16sp"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,18 +36,18 @@
             android:id="@+id/text_view_desc_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="message"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_view_post_date_chat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="date"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

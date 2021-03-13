@@ -110,14 +110,14 @@
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginBottom="10dp"
+        android:inputType="number"
         android:text="@string/register_repman_finalize_reg"
         android:textSize="12sp"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField_repman_tax_number"
-        android:inputType="number"/>
+        app:layout_constraintTop_toBottomOf="@+id/textField_repman_tax_number" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

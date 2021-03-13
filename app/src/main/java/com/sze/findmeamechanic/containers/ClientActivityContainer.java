@@ -1,19 +1,18 @@
 package com.sze.findmeamechanic.containers;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sze.findmeamechanic.R;
 import com.sze.findmeamechanic.fragments.client.FinishedJobsFragment;
 import com.sze.findmeamechanic.fragments.client.HomeFragment;
-import com.sze.findmeamechanic.R;
-import com.sze.findmeamechanic.fragments.client.RepairmanDetailsFragment;
 import com.sze.findmeamechanic.fragments.client.SettingsFragment;
 
 public class ClientActivityContainer extends AppCompatActivity {

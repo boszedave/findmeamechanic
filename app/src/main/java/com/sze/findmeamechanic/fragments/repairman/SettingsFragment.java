@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 //create notification
                 String title = "Új jelentkezés";
                 String content = "A(z) " + str + " elnevezésű munkádnál új jelentkezés történt!";
-                String CHANNEL_ID =Integer.toString(new Random().nextInt(100));
+                String CHANNEL_ID = Integer.toString(new Random().nextInt(100));
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), CHANNEL_ID)
                         .setSmallIcon(R.drawable.support)

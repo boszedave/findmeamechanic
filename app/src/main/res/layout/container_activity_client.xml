@@ -10,13 +10,13 @@
         android:id="@+id/main_client_activity_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav"/>
+        android:layout_above="@id/bottom_nav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_navigation_client"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white"
+        app:menu="@menu/bottom_navigation_client" />
 </RelativeLayout>

@@ -2,8 +2,6 @@ package com.sze.findmeamechanic.models;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-import java.util.ArrayList;
-
 public class FinishedJob {
     String jobSenderID, jobID, jobName, jobType, jobDescription, jobDeadline, jobDate, jobPictureUrl = "-",
             jobApplicantID, finishDate, locationText, jobSheetPdfUrl;

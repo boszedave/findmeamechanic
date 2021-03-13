@@ -26,7 +26,7 @@ public class JobsAdapter extends FirestoreRecyclerAdapter<Job, JobsAdapter.jobHo
     protected void onBindViewHolder(@NonNull jobHolder holder, int position, @NonNull Job model) {
         holder.textViewTitle.setText(model.getJobName());
         holder.textViewDescription.setText(model.getJobDescription());
-        holder.textViewPostDate.setText(model.getJobDate().substring(0,10));
+        holder.textViewPostDate.setText(model.getJobDate().substring(0, 10));
     }
 
     @NonNull
@@ -59,11 +59,11 @@ public class JobsAdapter extends FirestoreRecyclerAdapter<Job, JobsAdapter.jobHo
         }
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 

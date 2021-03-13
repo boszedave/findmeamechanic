@@ -26,6 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -46,6 +47,7 @@ import com.sze.findmeamechanic.R;
 import com.sze.findmeamechanic.managers.FirestoreManager;
 import com.sze.findmeamechanic.managers.ImageUploadManager;
 import com.sze.findmeamechanic.managers.ValidationManager;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -130,8 +132,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        }
-        else {
+        } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
@@ -168,12 +169,10 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
                     if (takePicture.resolveActivity(context.getPackageManager()) != null) {
                         startActivityForResult(takePicture, 0);
                     }
-                }
-                else if (options[item].equals("Galéria")) {
+                } else if (options[item].equals("Galéria")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto, 1);
-                }
-                else if (options[item].equals("Mégsem")) {
+                } else if (options[item].equals("Mégsem")) {
                     dialog.dismiss();
                 }
             }
@@ -198,10 +197,8 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
                     pathToImage = imageUrl;
                     Snackbar.make(getActivity().findViewById(android.R.id.content), "Kép sikeresen feltöltve!", Snackbar.LENGTH_LONG).show();
                     firestoreManager.saveJob(name, type, description, deadline, timestamp, pathToImage, inputLocationCoordinates, geoHashLocation, reverseGeoCoding(inputLocationCoordinates));
-                    //TODO: CHECK if works
                     firestoreManager.addProfession(type);
                     pDialog.dismiss();
-                    //locationManager.removeUpdates(this);
                     getFragmentManager().popBackStack();
                 }
 
@@ -220,8 +217,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
                     }
                 }
             });
-        }
-        else {
+        } else {
             firestoreManager.saveJob(name, type, description, deadline, timestamp, pathToImage = "-", inputLocationCoordinates, geoHashLocation, reverseGeoCoding(inputLocationCoordinates));
             getFragmentManager().popBackStack();
         }
@@ -234,8 +230,8 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         String hash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(lat, lng));
         geoHashLocation = new HashMap<>();
         geoHashLocation.put("geohash", hash);
-        geoHashLocation.put("lat", lat);
-        geoHashLocation.put("lng", lng);
+        //geoHashLocation.put("lat", lat);
+        //geoHashLocation.put("lng", lng);
     }
 
     private void setCalendar() {
@@ -263,6 +259,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
             public void onTaskResultCallback(String professionName) {
                 professionList.add(professionName);
             }
+
             @Override
             public void onSuccessfulQueryCallback() {
                 adapter.notifyDataSetChanged();
@@ -287,9 +284,9 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
             System.out.print(e.getMessage());
         }
 
-        //check if the distance (in metres) between system location and input location is too large
+        //check if the distance (in metres) between the real location and input location is too large
         if (getDistance(inputLocationCoordinates.get(0), inputLocationCoordinates.get(1),
-                gpsLocationCoordinates.get(0),  gpsLocationCoordinates.get(1)) > MAX_DISTANCE_BETWEEN_LOCATIONS) {
+                gpsLocationCoordinates.get(0), gpsLocationCoordinates.get(1)) > MAX_DISTANCE_BETWEEN_LOCATIONS) {
             isLocationTooFar = true;
         } else {
             isLocationTooFar = false;
@@ -337,10 +334,12 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
     //listening user input on job address to get the address
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
 
         @Override
         public void afterTextChanged(Editable s) {
@@ -353,7 +352,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != getActivity().RESULT_CANCELED) {
             switch (requestCode) {
-                    //camera
+                //camera
                 case 0:
                     if (resultCode == getActivity().RESULT_OK && data != null) {
                         try {
@@ -364,7 +363,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
                         }
                     }
                     break;
-                    //gallery
+                //gallery
                 case 1:
                     if (resultCode == getActivity().RESULT_OK && data != null) {
                         Uri pictureUrl = data.getData();
@@ -389,14 +388,16 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
 
     @Override
     public void onProviderDisabled(String provider) {
-        Toast.makeText(getActivity(), "Kérlek, engedélyezd a GPS hozzáférést!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Kérlek, engedélyezd a GPS hozzáférést!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onProviderEnabled(String provider) { }
+    public void onProviderEnabled(String provider) {
+    }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) { }
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
 
     @Override
     public void onDestroy() {
@@ -416,33 +417,29 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         if (TextUtils.isEmpty(jobNameString)) {
             jobName.setError("Kötelező megadni!");
             return false;
-        }
-        else {
+        } else {
             jobName.setError(null);
         }
         if (TextUtils.isEmpty(jobTypeString)) {
             jobType.setError("Kötelező megadni!");
             return false;
-        }
-        else {
+        } else {
             jobType.setError(null);
         }
         if (TextUtils.isEmpty(jobDeadlineString)) {
             jobDeadline.setError("Kötelező megadni!");
             return false;
-        }
-        else {
+        } else {
             jobDeadline.setError(null);
         }
         if (TextUtils.isEmpty(jobLocationString)) {
             jobLocation.setError("Kötelező megadni!");
             return false;
-        }
-        else {
+        } else {
             jobLocation.setError(null);
         }
 
-        if ( /*jobLocation.getEditText().getText().length() > 0 */ !TextUtils.isEmpty(jobLocationString) && isLocationChanged) {
+        if (!TextUtils.isEmpty(jobLocationString) && isLocationChanged) {
             getUserInputLocation();
         }
         return true;

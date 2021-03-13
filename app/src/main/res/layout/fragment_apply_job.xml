@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true" >
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,10 +25,10 @@
             android:layout_height="wrap_content"
             android:textSize="26sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/imageView_top_bar"
             app:layout_constraintEnd_toEndOf="@id/imageView_top_bar"
             app:layout_constraintStart_toStartOf="@id/imageView_top_bar"
-            app:layout_constraintTop_toTopOf="@id/imageView_top_bar"
-            app:layout_constraintBottom_toBottomOf="@id/imageView_top_bar"/>
+            app:layout_constraintTop_toTopOf="@id/imageView_top_bar" />
 
         <TextView
             android:id="@+id/textView_apply_job_type"
@@ -114,8 +114,8 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
-            android:textSize="16sp"
             android:textColor="@color/appBlue"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textView_apply_job_location"
             app:layout_constraintTop_toBottomOf="@id/textView_apply_job_deadline_text" />
@@ -160,8 +160,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
-            android:textSize="16sp"
             android:textColor="@color/appBlue"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/textView_apply_job_sender"
             app:layout_constraintTop_toBottomOf="@id/textView_apply_job_date_text" />
 
@@ -173,22 +173,22 @@
             android:layout_marginBottom="16dp"
             android:text="@string/text_apply_job_apply"
             app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_apply_job_sender_name"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textView_apply_job_sender_name" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/pbar_apply_repairman"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="10dp"
             android:indeterminate="true"
             android:paddingTop="4dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:indicatorColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/button_apply_job_apply"
-            android:elevation="10dp"
-            app:indicatorColor="@color/white" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/button_apply_job_apply" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

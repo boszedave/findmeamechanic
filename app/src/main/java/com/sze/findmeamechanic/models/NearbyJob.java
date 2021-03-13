@@ -3,7 +3,8 @@ package com.sze.findmeamechanic.models;
 public class NearbyJob {
     private String name, desc, date, id, type;
 
-    public NearbyJob() { }
+    public NearbyJob() {
+    }
 
     public NearbyJob(String name, String desc, String date, String id, String type) {
         this.name = name;

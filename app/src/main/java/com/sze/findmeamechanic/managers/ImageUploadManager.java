@@ -2,13 +2,16 @@ package com.sze.findmeamechanic.managers;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
@@ -16,7 +19,8 @@ public class ImageUploadManager {
     private String imageId;
     private String pathToImage;
 
-    public ImageUploadManager() { }
+    public ImageUploadManager() {
+    }
 
     public void profilePictureUploader(Bitmap bitmap, final FirestoreManager firestoreManager, final UploadUrlCallback callback) {
         byte[] data = getImageToBytes(bitmap);
@@ -85,7 +89,9 @@ public class ImageUploadManager {
 
     public interface UploadUrlCallback {
         void onUploadSuccessCallback(String imageUrl);
+
         void onUploadFailedCallback();
+
         void onUploadProgressListener(double progress);
     }
 

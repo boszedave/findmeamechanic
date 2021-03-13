@@ -1,17 +1,17 @@
 package com.sze.findmeamechanic.activities;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.sze.findmeamechanic.containers.ClientActivityContainer;
 import com.sze.findmeamechanic.R;
+import com.sze.findmeamechanic.containers.ClientActivityContainer;
 import com.sze.findmeamechanic.containers.RepmanActivityContainer;
 import com.sze.findmeamechanic.managers.FirestoreManager;
-
-
-import android.content.Intent;
-import android.os.Bundle;
 
 import javax.annotation.Nullable;
 

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +26,6 @@ import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class FinishedJobDetailsFragment extends Fragment implements View.OnClickListener {
     private final static String JOB_ID = "jobId";
-    //private final static String REPAIRMAN_ID = "repID";
     private final static String DOCUMENT_ID = "documentID";
     private TextView jobName, jobType, jobDescription, jobDeadline, jobLocation, jobDatePosted, jobDateFinished, jobSenderName;
     private Button downloadWorksheet;

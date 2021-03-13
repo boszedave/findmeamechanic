@@ -8,9 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import com.sze.findmeamechanic.R;
-import com.sze.findmeamechanic.fragments.client.RepairmanDetailsFragment;
 import com.sze.findmeamechanic.fragments.repairman.FinishedJobsFragment;
 import com.sze.findmeamechanic.fragments.repairman.HomeFragment;
 import com.sze.findmeamechanic.fragments.repairman.JobsInProgressFragment;
@@ -20,9 +18,6 @@ import com.sze.findmeamechanic.managers.FirestoreManager;
 public class RepmanActivityContainer extends AppCompatActivity {
 
     BottomNavigationView bottomNav;
-   // FirebaseAuth fAuth;
-   // FirebaseUser loggedInUser;
-
     FirestoreManager firestoreManager;
 
     @Override
@@ -31,9 +26,6 @@ public class RepmanActivityContainer extends AppCompatActivity {
         setContentView(R.layout.container_activity_repman);
 
         firestoreManager = new FirestoreManager();
-
-        // fAuth = FirebaseAuth.getInstance();
-        //  loggedInUser = fAuth.getCurrentUser();
         bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -55,7 +47,7 @@ public class RepmanActivityContainer extends AppCompatActivity {
                         case R.id.nav_repman_active_jobs:
                             selectedFragment = new JobsInProgressFragment();
                             break;
-                       case R.id.nav_repman_closed_jobs:
+                        case R.id.nav_repman_closed_jobs:
                             selectedFragment = new FinishedJobsFragment();
                             break;
                         case R.id.nav_repman_settings:

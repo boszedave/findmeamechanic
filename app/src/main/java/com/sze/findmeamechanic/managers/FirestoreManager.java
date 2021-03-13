@@ -115,7 +115,6 @@ public class FirestoreManager {
                             @Override
                             public void onComplete(@NonNull Task<List<Task<?>>> task) {
                                 callback.onListCallback(matchingDocs);
-                                Log.d("listlist3", matchingDocs.toString());
                             }
                         });
                     }
@@ -441,8 +440,6 @@ public class FirestoreManager {
         });
     }
 
-    //TODO
-    // UNCOMMENT FUNCTION
     public void finishJob(String jobSenderID, final String docID, String jobName, String jobType, String jobDescription, String jobDeadline, String jobDate,
                           String jobPictureUrl, String locationText, String repmanID, String finishDate, String jobSheetUrl) {
         docRef = fStore.collection("FinishedJobs").document(docID);
@@ -451,15 +448,11 @@ public class FirestoreManager {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 //delete job from ActiveJobs collection
-                //fStore.collection("ActiveJobs").document(docID).delete();
+                fStore.collection("ActiveJobs").document(docID).delete();
             }
         });
-
-
     }
 
-    //TODO
-    // check it out
     public void checkIfApplied(String docID, final GetQueryCallback callback) {
         collectionRef = fStore.collection("ActiveJobs").document(docID).collection("jobApplicants");
         collectionRef.whereEqualTo("repId", userID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -470,13 +463,6 @@ public class FirestoreManager {
                 }
             }
         });
-
-       /* fStore.collection("ActiveJobs").document(docID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.getString("asd").contains(userID))
-            }
-        }); */
     }
 
     public Query getRepairmanActiveJobs() {
@@ -520,7 +506,6 @@ public class FirestoreManager {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
-                    // Log.d("fileupload", downloadUri.toString());
                     callback.onUploadSuccessCallback(downloadUri.toString());
                 } else {
                     callback.onUploadFailedCallback();
@@ -591,7 +576,7 @@ public class FirestoreManager {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                   callback.onQueryCallback();
+                                    callback.onQueryCallback();
                                 }
                             }
                         });
@@ -891,7 +876,6 @@ public class FirestoreManager {
 
     //region ------------------------- CALLBACK INTERFACES -------------------------
     public interface GetFieldCallback {
-        //void onGetFieldCallback(DocumentSnapshot documentSnapshot);
         void onTaskResultCallback(String str);
 
         void onSuccessfulQueryCallback();
@@ -917,8 +901,6 @@ public class FirestoreManager {
         void onUploadSuccessCallback(String imageUrl);
 
         void onUploadFailedCallback();
-
-        void onUploadProgressListener(double progress);
     }
     //-------------------------------------------------------------------------------
     //endregion

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    android:background="@color/appBlue" >
+    android:background="@color/appBlue"
+    tools:context=".activities.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"

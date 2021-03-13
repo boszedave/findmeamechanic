@@ -1,7 +1,5 @@
 package com.sze.findmeamechanic.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,11 +7,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.sze.findmeamechanic.R;
 import com.sze.findmeamechanic.managers.FirestoreManager;
 import com.sze.findmeamechanic.managers.ValidationManager;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -49,7 +50,7 @@ public class RegisterRepmanActivity extends AppCompatActivity implements Validat
         String taxNumberInput = taxNumber.getEditText().getText().toString();
         String newProfession = profession.getText().toString();
 
-      if (isInputValidated()) {
+        if (isInputValidated()) {
             firestoreManager.updateRepairmanData(professionInput, companyNameInput, companyAddressInput, taxNumberInput);
             firestoreManager.addProfession(newProfession);
             startActivity(new Intent(getApplicationContext(), MainActivity.class));

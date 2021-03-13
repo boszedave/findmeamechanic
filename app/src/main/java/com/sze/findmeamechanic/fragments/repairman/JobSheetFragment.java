@@ -290,9 +290,6 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
                 pBar.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "Sikertelen feltöltés, próbáld újra!", Toast.LENGTH_SHORT).show();
             }
-
-            @Override
-            public void onUploadProgressListener(double progress) { }
         });
     }
 

@@ -257,7 +257,8 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
     @Override
     public void onStop() {
         super.onStop();
-        listener.remove();
+        if (switchState)
+            listener.remove();
     }
 
     @Override

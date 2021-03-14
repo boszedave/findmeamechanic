@@ -86,7 +86,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
             public void onSuccessfulQueryCallback() {
             }
         });
-
     }
 
     @Override

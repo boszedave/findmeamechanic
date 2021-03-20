@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Message {
-    private String messageUserName;
+    //private String messageUserName;
     private String messageText;
     private String messageUserId;
     private String messageTime;
@@ -15,23 +15,23 @@ public class Message {
     public Message() {
     }
 
-    public Message(String messageUserName, String messageText, String messageUserId) {
+    public Message(String messageText, String messageUserId) {
         Date dateTime = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yy/MM/dd HH:mm", Locale.getDefault());
-        this.messageUserName = messageUserName;
+        //this.messageUserName = messageUserName;
         this.messageText = messageText;
         messageTime = dateFormat.format(dateTime);
 
         this.messageUserId = messageUserId;
     }
 
-    public String getMessageUserName() {
+   /* public String getMessageUserName() {
         return messageUserName;
     }
 
     public void setMessageUserName(String messageUserName) {
         this.messageUserName = messageUserName;
-    }
+    }*/
 
     public String getMessageText() {
         return messageText;

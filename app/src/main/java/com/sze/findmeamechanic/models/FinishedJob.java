@@ -4,7 +4,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 public class FinishedJob {
     String jobSenderID, jobID, jobName, jobType, jobDescription, jobDeadline, jobDate, jobPictureUrl = "-",
-            jobApplicantID, finishDate, locationText, jobSheetPdfUrl;
+            jobApplicantID, jobFinishDate, jobLocation, jobSheetPdfUrl;
 
     public FinishedJob() {
     }
@@ -13,7 +13,7 @@ public class FinishedJob {
     }
 
     public FinishedJob(String jobSenderID, String jobID, String jobName, String jobType, String jobDescription, String jobDeadline,
-                       String jobDate, String jobPictureUrl, String jobApplicantID, String finishDate, String locationText, String jobSheetPdfUrl) {
+                       String jobDate, String jobPictureUrl, String jobApplicantID, String jobFinishDate, String jobLocation, String jobSheetPdfUrl) {
         this.jobSenderID = jobSenderID;
         this.jobID = jobID;
         this.jobName = jobName;
@@ -23,17 +23,17 @@ public class FinishedJob {
         this.jobDate = jobDate;
         this.jobPictureUrl = jobPictureUrl;
         this.jobApplicantID = jobApplicantID;
-        this.finishDate = finishDate;
-        this.locationText = locationText;
+        this.jobFinishDate = jobFinishDate;
+        this.jobLocation = jobLocation;
         this.jobSheetPdfUrl = jobSheetPdfUrl;
     }
 
-    public String getLocationText() {
-        return locationText;
+    public String getJobLocation() {
+        return jobLocation;
     }
 
-    public void setLocationText(String locationText) {
-        this.locationText = locationText;
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
     }
 
     public String getJobSheetPdfUrl() {
@@ -116,11 +116,11 @@ public class FinishedJob {
         this.jobApplicantID = jobApplicantID;
     }
 
-    public String getFinishDate() {
-        return finishDate;
+    public String getJobFinishDate() {
+        return jobFinishDate;
     }
 
-    public void setFinishDate(String finishDate) {
-        this.finishDate = finishDate;
+    public void setJobFinishDate(String jobFinishDate) {
+        this.jobFinishDate = jobFinishDate;
     }
 }

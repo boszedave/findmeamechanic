@@ -93,7 +93,7 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
             case R.id.button_delete_profile:
                 if (!userOldPassword.getEditText().getText().toString().isEmpty()) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Munka törlése");
+                    alert.setTitle("Profil törlése");
                     alert.setMessage("Biztosan törlöd a profilod?");
                     alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                         @Override

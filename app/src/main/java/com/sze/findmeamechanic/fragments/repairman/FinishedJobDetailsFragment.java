@@ -4,6 +4,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,9 +82,9 @@ public class FinishedJobDetailsFragment extends Fragment implements View.OnClick
                     jobDeadline.setText(documentSnapshot.getString("jobDeadline"));
                     jobLocation.setText(documentSnapshot.getString("jobLocation"));
                     jobDatePosted.setText(documentSnapshot.getString("jobDate"));
-                    jobDateFinished.setText(documentSnapshot.getString("jobFinished"));
+                    jobDateFinished.setText(documentSnapshot.getString("jobFinishDate"));
 
-                    firestoreManager.getJobSenderDetails(docID, new FirestoreManager.GetSnapshotCallback() {
+                    firestoreManager.getJobSenderName(docID, new FirestoreManager.GetSnapshotCallback() {
                         @Override
                         public void onGetFieldCallback(DocumentSnapshot documentSnapshot) {
                             String name = documentSnapshot.getString("clientName");

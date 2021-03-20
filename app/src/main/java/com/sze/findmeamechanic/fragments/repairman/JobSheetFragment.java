@@ -1,7 +1,5 @@
 package com.sze.findmeamechanic.fragments.repairman;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +11,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -72,7 +70,6 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
         Bundle bundle = this.getArguments();
         docID = bundle.getString(JOB_ID);
         inputReferencesName = new ArrayList<>();
@@ -277,13 +274,14 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
                                 firestoreManager.getUserID(),
                                 sheetDate.getText().toString(),
                                 imageUrl);
+
+                        //delete file from internal storage after upload
+                        File file = new File(getActivity().getFilesDir(), sheetID + ".pdf");
+                        boolean deletedFile = file.delete();
                     }
                 });
             }
 
-            //delete file from internal storage after upload
-            File file = new File(getActivity().getFilesDir(), sheetID + ".pdf");
-            boolean deletedFile = file.delete();
 
             @Override
             public void onUploadFailedCallback() {
@@ -298,6 +296,7 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
         try {
             document.writeTo(new FileOutputStream(file));
         } catch (IOException e) {
+            Log.d("picupload", "savePDFToInternalStorage: " + e);
             e.printStackTrace();
         }
     }

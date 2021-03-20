@@ -442,7 +442,7 @@ public class FirestoreManager {
     }
 
     public Query getRepairmanActiveJobs() {
-        return fStore.collection("ActiveJobs").whereEqualTo("finalApplicant", userID);
+        return fStore.collection("ActiveJobs").whereEqualTo("finalApplicant", userID).orderBy("jobDate", Query.Direction.DESCENDING);
     }
 
     public void getJobSenderDetails(String docID, final GetSnapshotCallback callback) {

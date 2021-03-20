@@ -1,10 +1,12 @@
 package com.sze.findmeamechanic.activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
@@ -71,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity implements ValidationMan
         profilePicture = findViewById(R.id.imageview_profile_picture);
         googleAccount = GoogleSignIn.getLastSignedInAccount(this);
 
+        askForCameraPermission();
         //if user signed in through Google account, show them another layout
         if (googleAccount != null) {
             setElementsForGoogleRegistration();
@@ -103,6 +107,11 @@ public class RegisterActivity extends AppCompatActivity implements ValidationMan
                 selectImage(RegisterActivity.this);
                 break;
         }
+    }
+
+    private void askForCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
     }
 
     private void setElementsForGoogleRegistration() {

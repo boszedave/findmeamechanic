@@ -1,5 +1,6 @@
 package com.sze.findmeamechanic.fragments.repairman;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -220,6 +222,7 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
 
     @Override
     public void onProviderDisabled(String provider) {
+        Toast.makeText(getActivity(), "Kérlek, engedélyezd a GPS hozzáférést!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.sze.findmeamechanic.managers;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
@@ -250,7 +249,8 @@ public class FirestoreManager {
                 List<Integer> ratings = new ArrayList<>();
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot doc : task.getResult()) {
-                        ratings.add(doc.getLong("rating").intValue());
+                        if (doc.get("rating") != null)
+                            ratings.add(doc.getLong("rating").intValue());
                     }
                     callback.onRatingCallback(ratings);
                 }
@@ -418,15 +418,66 @@ public class FirestoreManager {
 
     public void finishJob(String jobSenderID, final String docID, String jobName, String jobType, String jobDescription, String jobDeadline, String jobDate,
                           String jobPictureUrl, String locationText, String repmanID, String finishDate, String jobSheetUrl) {
+
+        //make a copy of the doc in FinishedJobs collection
         docRef = fStore.collection("FinishedJobs").document(docID);
         FinishedJob jobObj = new FinishedJob(jobSenderID, docID, jobName, jobType, jobDescription, jobDeadline, jobDate, jobPictureUrl, repmanID, finishDate, locationText, jobSheetUrl);
         docRef.set(jobObj).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                //delete job from ActiveJobs collection
+                //delete subcollections of the original documents
+                fStore.collection("ActiveJobs").document(docID).collection("Chats").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+                            }
+                        }
+                    }
+                });
+                fStore.collection("ActiveJobs").document(docID).collection("jobApplicants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete();
+                            }
+                        }
+                    }
+                });
+
+                //delete the original document from ActiveJobs collection
                 fStore.collection("ActiveJobs").document(docID).delete();
             }
         });
+    }
+
+    public void deleteActiveJob(String docID) {
+        fStore.collection("ActiveJobs").document(docID).collection("jobApplicants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        document.getReference().delete();
+                    }
+                }
+            }
+        });
+
+        fStore.collection("ActiveJobs").document(docID).collection("Chats").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        document.getReference().delete();
+                    }
+                }
+            }
+        });
+
+
+        fStore.collection("ActiveJobs").document(docID).delete();
     }
 
     public void checkIfApplied(String docID, final GetQueryCallback callback) {
@@ -684,11 +735,12 @@ public class FirestoreManager {
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot != null)
+                if (documentSnapshot.exists())
                     callback.onGetFieldCallback(documentSnapshot);
             }
         });
     }
+
 
     public void getFinishedJobDetails(String docID, final GetSnapshotCallback callback) {
         docRef = fStore.collection("FinishedJobs").document(docID);

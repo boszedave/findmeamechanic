@@ -3,6 +3,7 @@ package com.sze.findmeamechanic.fragments.repairman;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,7 @@ public class InProgressJobDetailsFragment extends Fragment implements View.OnCli
                 jobDateText.setText(documentSnapshot.getString("jobDate"));
                 jobLocationText.setText(documentSnapshot.getString("jobLocation"));
 
-                if ((!documentSnapshot.getString("jobPictureUrl").isEmpty())) /* != "" ||
-                        documentSnapshot.getString("jobPictureUrl") != null) && getActivity() != null)*/ {
+                if ((!documentSnapshot.getString("jobPictureUrl").isEmpty())) {
                     Glide.with(getActivity())
                             .load(documentSnapshot.getString("jobPictureUrl"))
                             .fitCenter()
@@ -120,6 +120,7 @@ public class InProgressJobDetailsFragment extends Fragment implements View.OnCli
                 bundle.putString(JOB_ID, docID);
                 Fragment selectFragment = new JobSheetFragment();
                 selectFragment.setArguments(bundle);
+                getFragmentManager().popBackStack();
                 getFragmentManager().beginTransaction().replace(R.id.main_repman_activity_container, selectFragment).addToBackStack(null).commit();
                 break;
             case R.id.button_repman_chat:

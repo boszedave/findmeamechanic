@@ -26,6 +26,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.sze.findmeamechanic.R;
@@ -101,7 +104,6 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
         closeJob.setOnClickListener(this);
         closeJob.setEnabled(false);
         itemFinalize.setOnClickListener(this);
-
     }
 
     private void initData() {
@@ -114,8 +116,8 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
                     public void onGetFieldCallback(DocumentSnapshot documentSnapshotClient) {
                         //get repairman data
                         repmanNameText = documentSnapshotRepman.getString("repName");
-                        companyNameText = documentSnapshotRepman.getString("companyName");
-                        companyAddressText = documentSnapshotRepman.getString("companyAddress");
+                        companyNameText = documentSnapshotRepman.getString("repCompanyName");
+                        companyAddressText = documentSnapshotRepman.getString("repCompanyAddress");
                         repmanPhoneNrText = documentSnapshotRepman.getString("repPhoneNr");
                         if (companyNameText.isEmpty() && companyAddressText.isEmpty()) {
                             companyAddressText = "-";
@@ -262,7 +264,7 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
                 firestoreManager.getActiveJobDetails(docID, new FirestoreManager.GetSnapshotCallback() {
                     @Override
                     public void onGetFieldCallback(DocumentSnapshot documentSnapshot) {
-                        firestoreManager.finishJob(clientID,
+                       firestoreManager.finishJob(clientID,
                                 docID,
                                 documentSnapshot.getString("jobName"),
                                 documentSnapshot.getString("jobType"),
@@ -282,7 +284,6 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
                 });
             }
 
-
             @Override
             public void onUploadFailedCallback() {
                 pBar.setVisibility(View.GONE);
@@ -296,7 +297,6 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
         try {
             document.writeTo(new FileOutputStream(file));
         } catch (IOException e) {
-            Log.d("picupload", "savePDFToInternalStorage: " + e);
             e.printStackTrace();
         }
     }

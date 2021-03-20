@@ -195,7 +195,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
                 @Override
                 public void onUploadSuccessCallback(String imageUrl) {
                     pathToImage = imageUrl;
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Kép sikeresen feltöltve!", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), "Munka sikeresen hozzáadva!", Snackbar.LENGTH_LONG).show();
                     firestoreManager.saveJob(name, type, description, deadline, timestamp, pathToImage, inputLocationCoordinates, geoHashLocation, reverseGeoCoding(inputLocationCoordinates));
                     firestoreManager.addProfession(type);
                     pDialog.dismiss();

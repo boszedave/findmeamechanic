@@ -21,6 +21,7 @@ import com.sze.findmeamechanic.models.Job;
 
 public class FinishedJobsFragment extends Fragment {
     private final static String JOB_ID = "jobId";
+    private String docID;
     private JobsAdapter adapter;
     private FirestoreManager firestoreManager;
     private BottomNavigationView bottomNav;
@@ -29,12 +30,18 @@ public class FinishedJobsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_repairman_finished_jobs, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         bottomNav = getActivity().findViewById(R.id.bottom_nav);
         bottomNav.setVisibility(View.VISIBLE);
         firestoreManager = new FirestoreManager();
         initRecyclerView(view);
-
-        return view;
     }
 
     private void initRecyclerView(final View view) {

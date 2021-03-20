@@ -243,6 +243,7 @@ public class FirestoreManager {
     }
 
     public void getRepairmanJobsRatings(String repID, final GetRatingCallback callback) {
+        final int[] counter = {0};
         fStore.collection("FinishedJobs").whereEqualTo("jobApplicantID", repID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -251,8 +252,9 @@ public class FirestoreManager {
                     for (DocumentSnapshot doc : task.getResult()) {
                         if (doc.get("rating") != null)
                             ratings.add(doc.getLong("rating").intValue());
+                        counter[0]++;
                     }
-                    callback.onRatingCallback(ratings);
+                    callback.onRatingCallback(ratings, counter);
                 }
             }
         });
@@ -904,7 +906,7 @@ public class FirestoreManager {
     }
 
     public interface GetRatingCallback {
-        void onRatingCallback(List<Integer> list);
+        void onRatingCallback(List<Integer> list, int[] counter);
     }
 
     public interface GetQueryCallback {

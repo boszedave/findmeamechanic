@@ -86,4 +86,5 @@
     <string name="password_old">Régi jelszó</string>
     <string name="password_new">Új jelszó</string>
     <string name="password_new_confirm">Új jelszó megerősítése</string>
+    <string name="btn_delete_profile">Profil\ntörlése</string>
 </resources>

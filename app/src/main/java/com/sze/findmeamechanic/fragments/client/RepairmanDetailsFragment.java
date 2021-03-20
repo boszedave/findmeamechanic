@@ -88,14 +88,14 @@ public class RepairmanDetailsFragment extends Fragment implements View.OnClickLi
 
                 firestoreManager.getRepairmanJobsRatings(repID, new FirestoreManager.GetRatingCallback() {
                     @Override
-                    public void onRatingCallback(List<Integer> list) {
+                    public void onRatingCallback(List<Integer> list, int[] counter) {
                         float sumCount = 0;
                         for (int i = 0; i < list.size(); i++) {
                             sumCount += list.get(i);
                         }
                         float finalRating = sumCount / list.size();
                         rating.setRating(finalRating);
-                        finishedJobsCount.setText(String.valueOf(list.size()));
+                        finishedJobsCount.setText(String.valueOf(counter[0]));
                     }
                 });
 

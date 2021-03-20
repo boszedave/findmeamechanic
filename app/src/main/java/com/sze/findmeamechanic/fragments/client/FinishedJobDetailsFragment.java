@@ -96,7 +96,7 @@ public class FinishedJobDetailsFragment extends Fragment implements View.OnClick
                     jobDeadline.setText(documentSnapshot.getString("jobDeadline"));
                     jobLocation.setText(documentSnapshot.getString("jobLocation"));
                     jobDatePosted.setText(documentSnapshot.getString("jobDate"));
-                    jobDateFinished.setText(documentSnapshot.getString("jobFinished"));
+                    jobDateFinished.setText(documentSnapshot.getString("jobFinishDate"));
                     downloadUrl = documentSnapshot.getString("jobSheetPdfUrl");
 
                     getRepairman();

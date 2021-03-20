@@ -26,7 +26,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     FirestoreManager firestoreManager;
     private FirestoreRecyclerAdapter<Message, MessageAdapter.MessageHolder> adapter;
     private EditText input;
-    private String userId, userName, docID;
+    private String userName, docID;
 
     @Nullable
     @Override

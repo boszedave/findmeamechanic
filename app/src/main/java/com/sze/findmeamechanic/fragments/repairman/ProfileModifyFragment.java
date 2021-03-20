@@ -110,7 +110,7 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
             case R.id.button_delete_profile:
                 if (!userOldPassword.getEditText().getText().toString().isEmpty()) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-                    alert.setTitle("Munka törlése");
+                    alert.setTitle("Profil törlése");
                     alert.setMessage("Biztosan törlöd a profilod?");
                     alert.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
                         @Override
@@ -150,7 +150,7 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
                 userName.getEditText().setText(documentSnapshot.getString("repName"));
                 userEmail.getEditText().setText(documentSnapshot.getString("repEmail"));
                 userPhoneNumber.getEditText().setText(documentSnapshot.getString("repPhoneNr"));
-                taxNumber.getEditText().setText(documentSnapshot.getString("taxNumber"));
+                taxNumber.getEditText().setText(documentSnapshot.getString("repTaxNr"));
                 companyAddress.getEditText().setText(documentSnapshot.getString("repCompanyAddress"));
                 companyName.getEditText().setText(documentSnapshot.getString("repCompanyName"));
                 profession.setText(documentSnapshot.getString("repProfession"));
@@ -281,12 +281,12 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
 
         firestoreManager.getProfessionList(new FirestoreManager.GetFieldCallback() {
             @Override
-            public void onTaskResultCallback(String str) {
+            public void onTaskResultCallback(String professionName) {
+                professionList.add(professionName);
             }
 
             @Override
             public void onSuccessfulQueryCallback() {
-
             }
         });
     }

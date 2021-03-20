@@ -69,10 +69,10 @@ public class RepairmanDetailsFragment extends Fragment implements View.OnClickLi
                 repairmanName.setText(documentSnapshot.getString("repName"));
                 profession.setText(documentSnapshot.getString("repProfession"));
                 if (!documentSnapshot.getString("repCompanyName").isEmpty()) {
-                    companyName.setText(documentSnapshot.getString("companyName"));
+                    companyName.setText(documentSnapshot.getString("repCompanyName"));
                 }
                 if (!documentSnapshot.getString("repCompanyAddress").isEmpty()) {
-                    companyAddress.setText(documentSnapshot.getString("companyAddress"));
+                    companyAddress.setText(documentSnapshot.getString("repCompanyAddress"));
                 }
                 repairmanEmail.setText(documentSnapshot.getString("repEmail"));
                 repairmanPhone.setText(documentSnapshot.getString("repPhoneNr"));

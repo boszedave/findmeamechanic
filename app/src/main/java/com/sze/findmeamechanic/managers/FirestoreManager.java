@@ -462,6 +462,23 @@ public class FirestoreManager {
         });
     }
 
+    public void getJobSenderName(String docID, final GetSnapshotCallback callback) {
+        fStore.collection("FinishedJobs").document(docID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                fStore.collection("Clients").whereEqualTo("clientID", documentSnapshot.getString("jobSenderID")).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot doc : queryDocumentSnapshots) {
+                            // callback.onTaskResultCallback(doc.getString("clientName"));
+                            callback.onGetFieldCallback(doc);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     public void uploadJobSheet(Context context, String fileName, final UploadUrlCallback callback) {
         Uri file = Uri.fromFile(new File(context.getFilesDir() + "/" + fileName));
         final StorageReference jobSheetRef = storageRef.child("job_sheets/" + file.getLastPathSegment());
@@ -641,7 +658,7 @@ public class FirestoreManager {
         fStore.collection("Repairmen").document(fAuth.getUid()).update("repProfession", professionInput);
         fStore.collection("Repairmen").document(fAuth.getUid()).update("repCompanyName", companyNameInput);
         fStore.collection("Repairmen").document(fAuth.getUid()).update("repCompanyAddress", companyAddressInput);
-        fStore.collection("Repairmen").document(fAuth.getUid()).update("taxNumber", taxNumberInput);
+        fStore.collection("Repairmen").document(fAuth.getUid()).update("repTaxNr", taxNumberInput);
     }
     // ------------------------------------------------------------------
     //endregion
@@ -724,7 +741,6 @@ public class FirestoreManager {
         data.put("messageUserId", userID);
         data.put("messageTime", messageTime);
         data.put("messageUser", fAuth.getCurrentUser().getDisplayName());
-        // data.put("senderID", "asdfsdf213123");
         fStore.collection("ActiveJobs").document(docID).collection("Chats").add(data);
     }
 

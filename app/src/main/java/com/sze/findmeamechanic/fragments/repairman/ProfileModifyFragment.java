@@ -27,6 +27,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,6 +59,7 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
     private ProgressDialog pDialog;
     private ImageView profilePicture;
     private Bitmap imageAsBitmap;
+    private GoogleSignInAccount googleAccount;
 
     @Nullable
     @Override
@@ -88,11 +91,26 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
         rating = view.findViewById(R.id.ratingBar);
         finishedJobsCount = view.findViewById(R.id.textView_finished_jobs_number_count);
 
+        googleAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+
+        //if user signed in through Google account, show them another layout
+        // can't change google account credentials
+        if (googleAccount != null) {
+            setElementsForGoogleRegistration();
+        }
+
         initializeData();
 
         modifyProfile.setOnClickListener(this);
         profilePicture.setOnClickListener(this);
         deleteProfile.setOnClickListener(this);
+    }
+
+    private void setElementsForGoogleRegistration() {
+        userEmail.setEnabled(false);
+        userOldPassword.setVisibility(View.GONE);
+        userPassword.setVisibility(View.GONE);
+        userPasswordConf.setVisibility(View.GONE);
     }
 
     @Override
@@ -244,8 +262,11 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
                     });
         }
 
-        //update password and/or email
-        updateCredentials();
+        if (googleAccount != null) {
+            //update password and/or email
+            if (userOldPassword.getEditText().getText().length() != 0)
+                updateCredentials();
+        }
     }
 
     public void selectImage(final Context context) {

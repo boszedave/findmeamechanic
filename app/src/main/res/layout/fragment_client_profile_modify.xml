@@ -151,14 +151,16 @@
             android:id="@+id/button_delete_profile"
             android:layout_width="wrap_content"
             android:layout_height="55dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:backgroundTint="@color/button_error"
-            android:text="Profil\ntörlése"
+            android:text="@string/btn_delete_profile"
             android:textSize="12sp"
             app:cornerRadius="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_modify_profile"
-            app:layout_constraintStart_toStartOf="@id/textField_modify_password_confirm" />
+            app:layout_constraintStart_toStartOf="@id/textField_modify_password_confirm"
+            app:layout_constraintTop_toBottomOf="@+id/textField_modify_password_confirm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

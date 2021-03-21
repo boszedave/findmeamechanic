@@ -1,7 +1,10 @@
 package com.sze.findmeamechanic.fragments.repairman;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +35,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
     private boolean switchState;
     private View view;
     private FirestoreManager firestoreManager;
-    private TextView modifyProfile;
-    private TextView logout;
+    private TextView modifyProfile, logout, problemReporter;
     private SwitchCompat notify;
     private ListenerRegistration listener;
 
@@ -55,12 +57,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
         modifyProfile = view.findViewById(R.id.settings_profile_edit);
         logout = view.findViewById(R.id.settings_profile_log_out);
         notify = view.findViewById(R.id.switch_settings_notify_job);
+        problemReporter = view.findViewById(R.id.settings_report_problem);
 
         logout.setOnClickListener(this);
         modifyProfile.setOnClickListener(this);
         //set state of switch made earlier
         notify.setChecked(switchState);
         notify.setOnCheckedChangeListener(this);
+        problemReporter.setOnClickListener(this);
 
         listener = firestoreManager.notifyAboutNewApplicant(new FirestoreManager.GetFieldCallback() {
             @Override
@@ -99,8 +103,63 @@ public class SettingsFragment extends Fragment implements View.OnClickListener, 
                 getFragmentManager().beginTransaction().replace(R.id.main_repman_activity_container, selectFragment)
                         .addToBackStack(null).commit();
                 break;
+            case R.id.settings_report_problem:
+                showReportDialog();
+                break;
         }
     }
+
+    private void showReportDialog() {
+        LayoutInflater layout = getLayoutInflater();
+        View popup = layout.inflate(R.layout.problem_report_dialog, null);
+        TextView reportUser = popup.findViewById(R.id.report_user);
+        TextView reportBug = popup.findViewById(R.id.report_bug);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Hibabejelentés");
+        builder.setView(popup);
+
+        reportUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserReportEmail();
+            }
+        });
+
+        reportBug.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                sendBugReportEmail();
+            }
+        });
+
+        builder.setNegativeButton("Mégsem", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+    }
+
+    private void sendUserReportEmail() {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"dev@findmeamechanic.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Felhasználó bejelentése");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.user_report_email_text));
+        startActivity(emailIntent);
+    }
+
+    private void sendBugReportEmail() {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"dev@findmeamechanic.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Általános hibabejelentés");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.bug_report_email_text));
+        startActivity(emailIntent);
+    }
+
 
     private void signOut() {
         firestoreManager.getFAuth().signOut();

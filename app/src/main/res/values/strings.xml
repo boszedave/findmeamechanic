@@ -87,4 +87,12 @@
     <string name="password_new">Új jelszó</string>
     <string name="password_new_confirm">Új jelszó megerősítése</string>
     <string name="btn_delete_profile">Profil\ntörlése</string>
+    <string name="report_problem">Hibabejelentés</string>
+    <string name="new_applicant">Új jelentkező a munkánál</string>
+    <string name="user_report_email_text">Kérünk, hogy ide írd le, hogy melyik bejelentésnél volt problémád, és hogy melyik felhasználóval a nevének és az e-mail címének meghatározásával!
+        A lehető leghamarabb kivizsgáljuk a problémát. Elnézést kérünk a kellemetlenségekért!</string>
+    <string name="bug_report_email_text">Kérünk, ide írd le, hogy milyen hibát tapasztaltál az alkalmazás használata során, valamint, ha tudod, azt is, hogy hogyan idézted elő.
+    A lehető leghamarabb kivizsgáljuk a problémát. Köszönjük a bejelentésedet!</string>
+    <string name="report_user">Felhasználó jelentése</string>
+    <string name="report_app_bug">Probléma az applikációval</string>
 </resources>

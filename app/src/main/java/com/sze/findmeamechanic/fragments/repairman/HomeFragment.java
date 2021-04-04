@@ -117,7 +117,6 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
         adapter = new NearbyJobsAdapter(nearbyJobs, this);
         //clear list so new changes won't be added to an existing result list
         nearbyJobs.clear();
-        Log.d("fostaliga", "initRecyclerView: FOSTALIGA");
         firestoreManager.queryLocationHashes(lat, lng, radius, new FirestoreManager.GetListCallback() {
             @Override
             public void onListCallback(List<DocumentSnapshot> list) {

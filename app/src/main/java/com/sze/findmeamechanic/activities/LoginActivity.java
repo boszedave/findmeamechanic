@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -115,8 +116,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialog, int which) {
                 forgottenEmail = resetPasswordEmail.getEditText().getText().toString();
                 if (forgottenEmail.length() != 0) {
-                    firestoreManager.resetPassword(forgottenEmail, LoginActivity.this);
-                    Toast.makeText(LoginActivity.this, "A jelszó emlékeztetőt kiküldtük az e-mail címedre!", Toast.LENGTH_SHORT).show();
+                    if (Patterns.EMAIL_ADDRESS.matcher(forgottenEmail).matches()) {
+                        firestoreManager.resetPassword(forgottenEmail, LoginActivity.this);
+                        Toast.makeText(LoginActivity.this, "A jelszó emlékeztetőt kiküldtük az e-mail címedre!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, "Rossz e-mail-t adtál meg. Próbáld újra!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

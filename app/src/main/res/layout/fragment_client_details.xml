@@ -89,5 +89,17 @@
         app:layout_constraintStart_toEndOf="@id/imageView_icon_phone"
         app:layout_constraintTop_toBottomOf="@id/textView_client_email" />
 
+    <Button
+        android:id="@+id/btn_call_client"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="@string/text_call_repairman"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_client_phone"
+        app:layout_constraintVertical_bias="0.95" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,9 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
         pBar = view.findViewById(R.id.pbar_repairman);
         nearbyJobs = new ArrayList<>();
 
-        getGPSLocation();
+       if (!hasGPSPermission())
+            getGPSLocationPermission();
+       getGPSLocationPermission();
         filterButton.setOnClickListener(this);
         slider.addOnChangeListener(this);
         slider.addOnSliderTouchListener(this);
@@ -114,7 +117,7 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
         adapter = new NearbyJobsAdapter(nearbyJobs, this);
         //clear list so new changes won't be added to an existing result list
         nearbyJobs.clear();
-
+        Log.d("fostaliga", "initRecyclerView: FOSTALIGA");
         firestoreManager.queryLocationHashes(lat, lng, radius, new FirestoreManager.GetListCallback() {
             @Override
             public void onListCallback(List<DocumentSnapshot> list) {
@@ -135,16 +138,6 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
                 pBar.setVisibility(View.GONE);
             }
         });
-    }
-
-    private void getGPSLocation() {
-        locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-        }
     }
 
     private void showFilters() {
@@ -204,6 +197,23 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
         });
     }
 
+    private void getGPSLocationPermission() {
+        locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        }
+
+    }
+
+    private boolean hasGPSPermission() {
+        return ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         lat = location.getLatitude();
@@ -213,12 +223,10 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) { }
 
     @Override
-    public void onProviderEnabled(String provider) {
-    }
+    public void onProviderEnabled(String provider) { }
 
     @Override
     public void onProviderDisabled(String provider) {

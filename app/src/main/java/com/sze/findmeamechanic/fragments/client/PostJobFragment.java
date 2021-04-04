@@ -1,5 +1,6 @@
 package com.sze.findmeamechanic.fragments.client;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -97,7 +98,8 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         imageManager = new ImageUploadManager();
         firestoreManager = new FirestoreManager();
 
-        getGPSLocation();
+        if(!hasGPSPermission())
+            getGPSLocationPermission();
         sendJob.setOnClickListener(this);
         jobImageUpload.setOnClickListener(this);
         setCalendar();
@@ -128,14 +130,21 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         }
     }
 
-    private void getGPSLocation() {
+    private void getGPSLocationPermission() {
         locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
+
+    }
+
+    private boolean hasGPSPermission() {
+        return ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void showSelectedDate() {
@@ -230,8 +239,6 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         String hash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(lat, lng));
         geoHashLocation = new HashMap<>();
         geoHashLocation.put("geohash", hash);
-        //geoHashLocation.put("lat", lat);
-        //geoHashLocation.put("lng", lng);
     }
 
     private void setCalendar() {
@@ -291,7 +298,6 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         } else {
             isLocationTooFar = false;
         }
-
     }
 
     public String reverseGeoCoding(ArrayList<Double> arrayList) {

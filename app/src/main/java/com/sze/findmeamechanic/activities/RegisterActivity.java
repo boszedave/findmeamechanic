@@ -74,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity implements ValidationMan
         profilePicture = findViewById(R.id.imageview_profile_picture);
         googleAccount = GoogleSignIn.getLastSignedInAccount(this);
 
-        askForCameraPermission();
         //if user signed in through Google account, show them another layout
         if (googleAccount != null) {
             setElementsForGoogleRegistration();
@@ -104,14 +103,22 @@ public class RegisterActivity extends AppCompatActivity implements ValidationMan
                 }
                 break;
             case R.id.cardview_register_image_upload:
-                selectImage(RegisterActivity.this);
+                if (hasCameraPermission())
+                    selectImage(RegisterActivity.this);
+                else
+                    askForCameraPermission();
                 break;
         }
     }
 
     private void askForCameraPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 10);
+        }
+    }
+
+    private boolean hasCameraPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void setElementsForGoogleRegistration() {
@@ -362,5 +369,11 @@ public class RegisterActivity extends AppCompatActivity implements ValidationMan
     @Override
     public boolean isValidTaxNumber(String taxNumber) {
         return false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 }

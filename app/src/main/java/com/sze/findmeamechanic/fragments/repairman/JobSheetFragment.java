@@ -275,7 +275,8 @@ public class JobSheetFragment extends Fragment implements ValidationManager, Vie
                                 documentSnapshot.getString("jobLocation"),
                                 firestoreManager.getUserID(),
                                 sheetDate.getText().toString(),
-                                imageUrl);
+                                imageUrl,
+                               -1);
 
                         //delete file from internal storage after upload
                         File file = new File(getActivity().getFilesDir(), sheetID + ".pdf");

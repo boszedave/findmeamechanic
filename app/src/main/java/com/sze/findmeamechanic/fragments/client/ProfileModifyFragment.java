@@ -117,7 +117,7 @@ public class ProfileModifyFragment extends Fragment implements ValidationManager
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            firestoreManager.deleteUser(firestoreManager.getFAuth().getCurrentUser(), userOldPassword.getEditText().getText().toString(),
+                            firestoreManager.deleteClientUser(firestoreManager.getFAuth().getCurrentUser(), userOldPassword.getEditText().getText().toString(),
                                     new FirestoreManager.GetQueryCallback() {
                                         @Override
                                         public void onQueryCallback() {

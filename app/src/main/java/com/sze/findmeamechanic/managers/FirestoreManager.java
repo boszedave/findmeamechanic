@@ -2,6 +2,7 @@ package com.sze.findmeamechanic.managers;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
@@ -155,9 +156,18 @@ public class FirestoreManager {
     }
 
     public void deleteJob(final String docID) {
-        //delete job applicants sub collection
-        CollectionReference subCollection = fStore.collection("ActiveJobs").document(docID).collection("jobApplicants");
-        subCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        //delete subcollections of the original documents
+        fStore.collection("ActiveJobs").document(docID).collection("Chats").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        document.getReference().delete();
+                    }
+                }
+            }
+        });
+        fStore.collection("ActiveJobs").document(docID).collection("jobApplicants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -177,13 +187,17 @@ public class FirestoreManager {
                     if (!documentSnapshot.getString("jobPictureUrl").isEmpty()) {
                         String pictureUrl = documentSnapshot.getString("jobPictureUrl");
                         storageRef = fStorage.getReferenceFromUrl(pictureUrl);
-                        storageRef.delete();
+                        storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                //delete parent collection
+                                docRef.delete();
+                            }
+                        });
                     }
                 }
             }
         });
-        //delete parent collection
-        docRef.delete();
     }
 
     public void updateJobData(String docID, String type, String description, String pathToImage, String deadline) {
@@ -250,7 +264,7 @@ public class FirestoreManager {
                 List<Integer> ratings = new ArrayList<>();
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot doc : task.getResult()) {
-                        if (doc.get("rating") != null)
+                        if (doc.getLong("rating").intValue() != -1)
                             ratings.add(doc.getLong("rating").intValue());
                         counter[0]++;
                     }
@@ -303,7 +317,7 @@ public class FirestoreManager {
     }
 
     public void rate(String docID, float rating) {
-        fStore.collection("FinishedJobs").document(docID).update("rating", FieldValue.increment(rating));
+        fStore.collection("FinishedJobs").document(docID).update("rating", rating);
     }
 
     public void getClientDetails(String docID, final GetSnapshotCallback callback) {
@@ -329,7 +343,7 @@ public class FirestoreManager {
                         if (!documentSnapshot.getString("pathToImage").isEmpty()) {
                             final String pictureUrl = documentSnapshot.getString("pathToImage");
                             storageRef = fStorage.getReferenceFromUrl(pictureUrl);
-                            //if delete is completen THEN save the new picture url
+                            //if delete is complete THEN save the new picture url
                             storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -352,6 +366,48 @@ public class FirestoreManager {
         }
     }
 
+    public void deleteClientUser(final FirebaseUser user, final String oldPassword, final GetQueryCallback callback) {
+        //delete profile picture from storage
+        docRef = fStore.collection("Clients").document(user.getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    if (!documentSnapshot.getString("pathToImage").isEmpty()) {
+                        String pictureUrl = documentSnapshot.getString("pathToImage");
+                        storageRef = fStorage.getReferenceFromUrl(pictureUrl);
+                        storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                //delete parent collection
+                                docRef.delete();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    callback.onQueryCallback();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                AuthCredential credentials = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
+                user.reauthenticate(credentials).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        deleteClientUser(user, oldPassword, callback);
+                    }
+                });
+            }
+        });
+    }
     // --------------------------------------------------------
     //endregion
 
@@ -419,11 +475,11 @@ public class FirestoreManager {
     }
 
     public void finishJob(String jobSenderID, final String docID, String jobName, String jobType, String jobDescription, String jobDeadline, String jobDate,
-                          String jobPictureUrl, String locationText, String repmanID, String finishDate, String jobSheetUrl) {
+                          String jobPictureUrl, String locationText, String repmanID, String finishDate, String jobSheetUrl, int rating) {
 
         //make a copy of the doc in FinishedJobs collection
         docRef = fStore.collection("FinishedJobs").document(docID);
-        FinishedJob jobObj = new FinishedJob(jobSenderID, docID, jobName, jobType, jobDescription, jobDeadline, jobDate, jobPictureUrl, repmanID, finishDate, locationText, jobSheetUrl);
+        FinishedJob jobObj = new FinishedJob(jobSenderID, docID, jobName, jobType, jobDescription, jobDeadline, jobDate, jobPictureUrl, repmanID, finishDate, locationText, jobSheetUrl, rating);
         docRef.set(jobObj).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -453,33 +509,6 @@ public class FirestoreManager {
                 fStore.collection("ActiveJobs").document(docID).delete();
             }
         });
-    }
-
-    public void deleteActiveJob(String docID) {
-        fStore.collection("ActiveJobs").document(docID).collection("jobApplicants").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        document.getReference().delete();
-                    }
-                }
-            }
-        });
-
-        fStore.collection("ActiveJobs").document(docID).collection("Chats").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        document.getReference().delete();
-                    }
-                }
-            }
-        });
-
-
-        fStore.collection("ActiveJobs").document(docID).delete();
     }
 
     public void checkIfApplied(String docID, final GetQueryCallback callback) {
@@ -543,7 +572,6 @@ public class FirestoreManager {
                 if (!task.isSuccessful()) {
                     throw task.getException();
                 }
-
                 return jobSheetRef.getDownloadUrl();
             }
         }).addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -673,6 +701,48 @@ public class FirestoreManager {
         return listener;
     }
 
+    public void deleteRepmanUser(final FirebaseUser user, final String oldPassword, final GetQueryCallback callback) {
+        //delete profile picture from storage
+        docRef = fStore.collection("Repairmen").document(user.getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    if (!documentSnapshot.getString("pathToImage").isEmpty()) {
+                        String pictureUrl = documentSnapshot.getString("pathToImage");
+                        storageRef = fStorage.getReferenceFromUrl(pictureUrl);
+                        storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                //delete parent collection
+                                docRef.delete();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    callback.onQueryCallback();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                AuthCredential credentials = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
+                user.reauthenticate(credentials).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        deleteClientUser(user, oldPassword, callback);
+                    }
+                });
+            }
+        });
+    }
     //endregion
 
     //region -------------------- REGISTRATION --------------------
@@ -796,28 +866,6 @@ public class FirestoreManager {
         data.put("messageTime", messageTime);
         data.put("messageUser", fAuth.getCurrentUser().getDisplayName());
         fStore.collection("ActiveJobs").document(docID).collection("Chats").add(data);
-    }
-
-    public void deleteUser(final FirebaseUser user, final String oldPassword, final GetQueryCallback callback) {
-        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    callback.onQueryCallback();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                AuthCredential credentials = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
-                user.reauthenticate(credentials).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        deleteUser(user, oldPassword, callback);
-                    }
-                });
-            }
-        });
     }
     // ------------------------------------------------------------------
     //endregion

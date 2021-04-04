@@ -93,20 +93,6 @@ public class ApplyJobFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onGetFieldCallback(DocumentSnapshot documentSnapshot) {
                         String name = documentSnapshot.getString("clientName");
-                        jobSenderName.setText(name);
-                        jobSenderName.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getActivity(), "Bejelentő profiljának megnyitása", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-
-                firestoreManager.getJobSenderDetails(docID, new FirestoreManager.GetSnapshotCallback() {
-                    @Override
-                    public void onGetFieldCallback(DocumentSnapshot documentSnapshot) {
-                        String name = documentSnapshot.getString("clientName");
                         final String id = documentSnapshot.getString("clientID");
                         jobSenderName.setText(name);
                         jobSenderName.setOnClickListener(new View.OnClickListener() {

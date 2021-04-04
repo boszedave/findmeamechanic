@@ -147,12 +147,12 @@ public class ActiveJobDetailsFragment extends Fragment implements ValidationMana
                 startChat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String valami = "asd";
+                        String username = "";
                         if (!repName.getText().toString().isEmpty())
-                            valami = repName.getText().toString();
+                            username = repName.getText().toString();
                         Bundle bundle = new Bundle();
                         bundle.putString(JOB_ID, docID);
-                        bundle.putString("username", valami);
+                        bundle.putString("username", username);
                         Fragment chatFragment = new ChatFragment();
                         chatFragment.setArguments(bundle);
                         getFragmentManager().beginTransaction().replace(R.id.main_client_activity_container, chatFragment).addToBackStack(null).commit();

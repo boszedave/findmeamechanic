@@ -6,6 +6,16 @@ public class FinishedJob {
     String jobSenderID, jobID, jobName, jobType, jobDescription, jobDeadline, jobDate, jobPictureUrl = "-",
             jobApplicantID, jobFinishDate, jobLocation, jobSheetPdfUrl;
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    int rating;
+
     public FinishedJob() {
     }
 
@@ -13,7 +23,7 @@ public class FinishedJob {
     }
 
     public FinishedJob(String jobSenderID, String jobID, String jobName, String jobType, String jobDescription, String jobDeadline,
-                       String jobDate, String jobPictureUrl, String jobApplicantID, String jobFinishDate, String jobLocation, String jobSheetPdfUrl) {
+                       String jobDate, String jobPictureUrl, String jobApplicantID, String jobFinishDate, String jobLocation, String jobSheetPdfUrl, int rating) {
         this.jobSenderID = jobSenderID;
         this.jobID = jobID;
         this.jobName = jobName;
@@ -26,6 +36,7 @@ public class FinishedJob {
         this.jobFinishDate = jobFinishDate;
         this.jobLocation = jobLocation;
         this.jobSheetPdfUrl = jobSheetPdfUrl;
+        this.rating = rating;
     }
 
     public String getJobLocation() {

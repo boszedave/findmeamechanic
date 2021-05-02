@@ -84,9 +84,7 @@ public class HomeFragment extends Fragment implements LocationListener, NearbyJo
         pBar = view.findViewById(R.id.pbar_repairman);
         nearbyJobs = new ArrayList<>();
 
-       if (!hasGPSPermission())
-            getGPSLocationPermission();
-       getGPSLocationPermission();
+        getGPSLocationPermission();
         filterButton.setOnClickListener(this);
         slider.addOnChangeListener(this);
         slider.addOnSliderTouchListener(this);

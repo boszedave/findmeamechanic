@@ -19,6 +19,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,8 +99,7 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         imageManager = new ImageUploadManager();
         firestoreManager = new FirestoreManager();
 
-        if(!hasGPSPermission())
-            getGPSLocationPermission();
+        getGPSLocationPermission();
         sendJob.setOnClickListener(this);
         jobImageUpload.setOnClickListener(this);
         setCalendar();
@@ -139,7 +139,6 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
-
     }
 
     private boolean hasGPSPermission() {
@@ -410,7 +409,8 @@ public class PostJobFragment extends Fragment implements ValidationManager, View
         super.onDestroy();
         if (pDialog != null)
             pDialog.dismiss();
-        locationManager.removeUpdates(this);
+        if (locationManager != null)
+            locationManager.removeUpdates(this);
     }
 
     @Override

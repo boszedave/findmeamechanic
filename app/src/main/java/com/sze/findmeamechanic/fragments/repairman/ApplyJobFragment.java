@@ -1,7 +1,6 @@
 package com.sze.findmeamechanic.fragments.repairman;
 
 import android.content.Intent;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,8 +21,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.sze.findmeamechanic.R;
 import com.sze.findmeamechanic.managers.FirestoreManager;
 
-import java.util.Locale;
-
 public class ApplyJobFragment extends Fragment implements View.OnClickListener {
     private final static String JOB_ID = "jobId";
     private final static String DOCUMENT_ID = "documentID";
@@ -33,7 +29,6 @@ public class ApplyJobFragment extends Fragment implements View.OnClickListener {
     private ImageView jobImage;
     private Button applyToJob;
     private FirestoreManager firestoreManager;
-    private Geocoder geocoder;
     private ProgressBar pBar;
 
     @Nullable
@@ -47,7 +42,6 @@ public class ApplyJobFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         firestoreManager = new FirestoreManager();
-        geocoder = new Geocoder(getActivity(), Locale.getDefault());
         Bundle bundle = this.getArguments();
         docID = bundle.getString(JOB_ID);
         jobName = view.findViewById(R.id.textView_apply_job_name);
